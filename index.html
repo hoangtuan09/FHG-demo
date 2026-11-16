@@ -8,10 +8,40 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap"
       rel="stylesheet"
     />
     <style>
+      /* ===== SVN-Gotham (local) ===== */
+      @font-face {
+        font-family: "SVN-Gotham";
+        src: url("fonts/SVN-GothamBook.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "SVN-Gotham";
+        src: url("fonts/SVN-Gotham.woff2") format("woff2");
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "SVN-Gotham";
+        src: url("fonts/SVN-GothamBold.woff2") format("woff2");
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "Kokomo Breeze";
+        src: url("fonts/KokomoBreeze-Regular.otf") format("opentype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+
       * {
         margin: 0;
         padding: 0;
@@ -19,7 +49,7 @@
       }
 
       body {
-        font-family: "Poppins", sans-serif;
+        font-family: "SVN-Gotham", sans-serif;
         color: #4a5a5a;
         overflow-x: hidden;
       }
@@ -157,7 +187,7 @@
 
       /* --- Tiêu đề script --- */
       .hero__title {
-        font-family: "Dancing Script", cursive;
+        font-family: "Kokomo Breeze", "Dancing Script", cursive;
         font-size: 64px;
         color: #6f8585;
         line-height: 1;
@@ -900,7 +930,7 @@
         <!-- Hai thương hiệu (logo) -->
         <img
           class="brands-img"
-          src="images/4x/Asset 11@4xx.png"
+          src="images/fusion-oriental-logo.png"
           alt="Fusion Hotel Group × Oriental Hotels &amp; Resorts"
         />
 
@@ -2077,15 +2107,19 @@
     <script>
       // ===== Dữ liệu 2 slider — thay img/name/city theo nhu cầu =====
       const orientalHotels = [
-        { name: "Oriental Hotel Kyoto Rokujo",     city: "Kyoto", img: "images/4x/Asset 6@4xx.png" },
-        { name: "Oriental Hotel Tokyo Bay",         city: "Chiba", img: "images/4x/Asset 8@4xx.png" },
-        { name: "International Garden Hotel Narita", city: "Chiba", img: "images/4x/Asset 10@4xx.png" },
+        { name: "Oriental Hotel Fukuoka",                 city: "Fukuoka",   img: "images/hotels/oriental/oriental-fukuoka.jpg" },
+        { name: "Oriental Hotel Hiroshima",               city: "Hiroshima", img: "images/hotels/oriental/oriental-hiroshima.jpg" },
+        { name: "Namba Oriental Hotel",                   city: "Osaka",     img: "images/hotels/oriental/namba-oriental-osaka.jpg" },
+        { name: "Okinawa Harborview Hotel",               city: "Okinawa",   img: "images/hotels/oriental/okinawa-harborview.jpg" },
+        { name: "Southern Beach Hotel & Resort Okinawa",  city: "Okinawa",   img: "images/hotels/oriental/southern-beach-okinawa.jpg" },
       ];
 
       const expressHotels = [
-        { name: "Hotel Oriental Express Kagoshima Tenmonkan", city: "Kagoshima", img: "images/4x/Asset 15@4xx.png" },
-        { name: "Hotel Oriental Express Fukuoka Tenjin",      city: "Fukuoka",   img: "images/4x/Asset 16@4xx.png" },
-        { name: "Hotel Oriental Express Osaka Shinsaibashi",  city: "Osaka",     img: "images/4x/Asset 17@4xx.png" },
+        { name: "Hotel Oriental Express Kagoshima Tenmonkan", city: "Kagoshima", img: "images/hotels/express/express-kagoshima-tenmonkan.jpg" },
+        { name: "Hotel Oriental Express Fukuoka Tenjin",      city: "Fukuoka",   img: "images/hotels/express/express-fukuoka-tenjin.jpg" },
+        { name: "Hotel Oriental Express Osaka Shinsaibashi",  city: "Osaka",     img: "images/hotels/express/express-osaka-shinsaibashi.jpg" },
+        { name: "Hotel Oriental Express Ginza West",          city: "Tokyo",     img: "images/hotels/express/express-ginza-west.jpg" },
+        { name: "Hotel Oriental Express Tokyo Kamata",        city: "Tokyo",     img: "images/hotels/express/express-tokyo-kamata.jpg" },
       ];
 
       // Hàm khởi tạo 1 slider
