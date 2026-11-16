@@ -11,6 +11,15 @@
       href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap"
       rel="stylesheet"
     />
+    <!-- Swiper (slider kéo tay) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.1.14/swiper-bundle.min.css"
+    />
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.1.14/swiper-bundle.min.js"
+    ></script>
     <style>
       /* ===== SVN-Gotham (local) ===== */
       @font-face {
@@ -558,22 +567,25 @@
         margin-bottom: 34px;
       }
 
-      /* viewport + track */
+      /* viewport + track (Swiper) */
       .slider {
         overflow: hidden;
       }
-      .slider__track {
-        display: flex;
-        gap: 24px;
-        transition: transform 0.45s ease;
-      }
       .slide {
-        flex: 0 0 calc((100% - 48px) / 3); /* 3 thẻ/khung, trừ 2 khoảng gap */
         position: relative;
         height: 340px;
         border-radius: 2px;
         overflow: hidden;
         background: #d8dede center/cover no-repeat;
+      }
+      /* Swiper nắm kích thước từng slide -> không ép flex-basis */
+      .slider .swiper-slide {
+        box-sizing: border-box;
+        height: auto;
+        cursor: grab;
+      }
+      .slider .swiper-slide:active {
+        cursor: grabbing;
       }
       /* nền đen mờ dưới caption */
       .slide::after {
@@ -627,16 +639,28 @@
       .dot.active {
         background: #3d8585;
       }
+      /* bullet của Swiper -> giữ nguyên kiểu chấm cũ */
+      .dots .swiper-pagination-bullet {
+        width: 11px;
+        height: 11px;
+        margin: 0;
+        border-radius: 50%;
+        border: 1px solid #3d8585;
+        background: transparent;
+        opacity: 1;
+        cursor: pointer;
+      }
+      .dots .swiper-pagination-bullet-active {
+        background: #3d8585;
+      }
 
       @media (max-width: 900px) {
         .slide {
-          flex: 0 0 calc((100% - 24px) / 2);
           height: 260px;
         } /* 2 thẻ/khung */
       }
       @media (max-width: 560px) {
         .slide {
-          flex: 0 0 100%;
           height: 240px;
         } /* 1 thẻ/khung */
       }
@@ -1073,8 +1097,8 @@
         <p class="portfolio__desc">
           Timeless and warm hospitality in iconic destinations
         </p>
-        <div class="slider">
-          <div class="slider__track" id="track1"></div>
+        <div class="slider swiper" id="sw1">
+          <div class="swiper-wrapper" id="track1"></div>
         </div>
         <div class="dots" id="dots1"></div>
       </div>
@@ -1085,8 +1109,8 @@
         <p class="portfolio__desc">
           Smart and comfortable stays in prime urban locations
         </p>
-        <div class="slider">
-          <div class="slider__track" id="track2"></div>
+        <div class="slider swiper" id="sw2">
+          <div class="swiper-wrapper" id="track2"></div>
         </div>
         <div class="dots" id="dots2"></div>
       </div>
@@ -2123,53 +2147,45 @@
         { name: "Hotel Oriental Express Tokyo Kamata",        city: "Tokyo",     img: "images/hotels/express/express-tokyo-kamata.jpg" },
       ];
 
-      // Hàm khởi tạo 1 slider
-      function initSlider(trackId, dotsId, hotels) {
+      // Hàm khởi tạo 1 slider (Swiper - kéo tay)
+      function initSlider(swiperSel, trackId, dotsEl, hotels) {
         const track = document.getElementById(trackId);
-        const dotsWrap = document.getElementById(dotsId);
 
         hotels.forEach((h) => {
           const el = document.createElement("div");
-          el.className = "slide";
+          el.className = "swiper-slide slide";
           el.style.backgroundImage = `url('${h.img}')`;
           el.innerHTML = `<div class="slide__caption"><b>${h.name}</b>${h.city}</div>`;
           track.appendChild(el);
         });
 
-        function perView() {
-          if (window.innerWidth <= 560) return 1;
-          if (window.innerWidth <= 900) return 2;
-          return 3;
-        }
-
-        let index = 0;
-        const maxIndex = () => Math.max(0, hotels.length - perView());
-
-        function render() {
-          const slide = track.querySelector(".slide");
-          const gap = 24;
-          const step = slide.getBoundingClientRect().width + gap;
-          index = Math.min(index, maxIndex());
-          track.style.transform = `translateX(-${index * step}px)`;
-          buildDots();
-        }
-
-        function buildDots() {
-          dotsWrap.innerHTML = "";
-          for (let i = 0; i <= maxIndex(); i++) {
-            const b = document.createElement("button");
-            b.className = "dot" + (i === index ? " active" : "");
-            b.addEventListener("click", () => { index = i; render(); });
-            dotsWrap.appendChild(b);
-          }
-        }
-
-        window.addEventListener("resize", render);
-        render();
+        new Swiper(swiperSel, {
+          slidesPerView: 1,
+          spaceBetween: 24,
+          grabCursor: true,
+          speed: 450,
+          pagination: {
+            el: dotsEl,
+            clickable: true,
+          },
+          breakpoints: {
+            561: { slidesPerView: 2 },
+            901: { slidesPerView: 3 },
+          },
+        });
       }
 
-      initSlider("track1", "dots1", orientalHotels);
-      initSlider("track2", "dots2", expressHotels);
+      function initSliders() {
+        initSlider("#sw1", "track1", "#dots1", orientalHotels);
+        initSlider("#sw2", "track2", "#dots2", expressHotels);
+      }
+
+      // chờ Swiper (script defer) sẵn sàng
+      if (window.Swiper) {
+        initSliders();
+      } else {
+        window.addEventListener("load", initSliders);
+      }
     </script>
   </body>
 </html>
