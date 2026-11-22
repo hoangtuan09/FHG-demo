@@ -946,6 +946,26 @@
           font-size: 12px;
         }
       }
+
+      /* ===== FOOTER ===== */
+      .site-footer {
+        background: #4e8a8a;
+        padding: 46px 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .footer-logo {
+        width: 760px;
+        max-width: 88%;
+        height: auto;
+        display: block;
+      }
+      @media (max-width: 600px) {
+        .site-footer {
+          padding: 34px 24px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1919,6 +1939,15 @@
       <!-- Danh sách vùng (chỉ hiện trên mobile) -->
       <div class="map-list" id="mapList"></div>
     </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+      <img
+        class="footer-logo"
+        src="images/4x/logo-white.png"
+        alt="Fusion Hotel Group & Oriental Hotels & Resorts"
+      />
+    </footer>
 
     <script>
       // ===== Bản đồ tỉnh tương tác =====
